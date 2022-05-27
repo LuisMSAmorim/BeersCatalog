@@ -24,11 +24,11 @@ namespace BeersCatalog.DAL.Migrations
 
             modelBuilder.Entity("BeersCatalog.BLL.Models.Beer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("BeerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("BeerId"), 1L, 1);
 
                     b.Property<float>("ABV")
                         .HasColumnType("real");
@@ -43,70 +43,31 @@ namespace BeersCatalog.DAL.Migrations
                     b.Property<int>("Price")
                         .HasColumnType("int");
 
-                    b.Property<int>("StyleID")
+                    b.Property<int>("StyleId")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("BeerId");
 
-                    b.HasIndex("StyleID");
+                    b.HasIndex("StyleId");
 
                     b.ToTable("Beer");
                 });
 
             modelBuilder.Entity("BeersCatalog.BLL.Models.Style", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("StyleId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StyleId"), 1L, 1);
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("StyleId");
 
                     b.ToTable("Style");
-                });
-
-            modelBuilder.Entity("BeersCatalog.BLL.Models.User", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("UserName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("User");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -311,7 +272,7 @@ namespace BeersCatalog.DAL.Migrations
                 {
                     b.HasOne("BeersCatalog.BLL.Models.Style", "Style")
                         .WithMany()
-                        .HasForeignKey("StyleID")
+                        .HasForeignKey("StyleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

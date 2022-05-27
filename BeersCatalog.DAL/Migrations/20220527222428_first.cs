@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BeersCatalog.DAL.Migrations
 {
-    public partial class AddAuth : Migration
+    public partial class first : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -46,6 +46,19 @@ namespace BeersCatalog.DAL.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Style",
+                columns: table => new
+                {
+                    StyleId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Style", x => x.StyleId);
                 });
 
             migrationBuilder.CreateTable(
@@ -154,6 +167,29 @@ namespace BeersCatalog.DAL.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Beer",
+                columns: table => new
+                {
+                    BeerId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Price = table.Column<int>(type: "int", nullable: false),
+                    ABV = table.Column<float>(type: "real", nullable: false),
+                    IBU = table.Column<int>(type: "int", nullable: false),
+                    StyleId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Beer", x => x.BeerId);
+                    table.ForeignKey(
+                        name: "FK_Beer_Style_StyleId",
+                        column: x => x.StyleId,
+                        principalTable: "Style",
+                        principalColumn: "StyleId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -192,6 +228,11 @@ namespace BeersCatalog.DAL.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Beer_StyleId",
+                table: "Beer",
+                column: "StyleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -212,10 +253,16 @@ namespace BeersCatalog.DAL.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Beer");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Style");
         }
     }
 }

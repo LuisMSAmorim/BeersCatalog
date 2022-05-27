@@ -29,17 +29,24 @@ public sealed class BeersRepository : IBeersRepository
 
     public async Task<List<Beer>> GetAllAsync()
     {
-        return await _context.Beer.ToListAsync();
+        return await _context.Beer
+            .Include(x => x.Style)
+            .ToListAsync();
     }
 
-    public async Task<List<Beer>> GetAllByStyleAsync(Style style)
+    public async Task<List<Beer>> GetAllByStyleAsync(int styleId)
     {
-        return await _context.Beer.Where(x => x.Style == style).ToListAsync();
+        return await _context.Beer
+            .Where(x => x.StyleId == styleId)
+            .Include(x => x.Style)
+            .ToListAsync();
     }
 
     public async Task<Beer> GetAsync(int id)
     {
-        return await _context.Beer.SingleOrDefaultAsync(x => x.Id == id);
+        return await _context.Beer
+            .Include(x => x.Style)
+            .SingleOrDefaultAsync(x => x.BeerId == id);
     }
 
     public async Task UpdateAsync(int id, Beer beer)
@@ -48,7 +55,7 @@ public sealed class BeersRepository : IBeersRepository
 
         await _context.SaveChangesAsync();
 
-        var oldBeer = await _context.Beer.SingleOrDefaultAsync(beer => beer.Id == id);
+        var oldBeer = await _context.Beer.SingleOrDefaultAsync(beer => beer.BeerId == id);
 
         _context.Entry(oldBeer).CurrentValues.SetValues(beer);
 

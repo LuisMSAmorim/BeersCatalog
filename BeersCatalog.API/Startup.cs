@@ -56,6 +56,7 @@ public class Startup
     public void DependencyInjectionServices(IServiceCollection services)
     {
         services.AddScoped<IStylesRepository, StylesRepository>();
+        services.AddScoped<IBeersRepository, BeersRepository>();
     }
 }
 

@@ -8,28 +8,28 @@ namespace BeersCatalog.API.Controllers;
 [ApiController]
 public class StylesController : ControllerBase
 {
-    private readonly IStylesRepository _context;
+    private readonly IStylesRepository _repository;
 
     public StylesController
     (
         IStylesRepository stylesRepository
     )
     {
-        _context = stylesRepository;
+        _repository = stylesRepository;
     }
 
     // GET: api/Styles
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Style>>> GetStyle()
     {
-        return await _context.GetAllAsync();
+        return await _repository.GetAllAsync();
     }
 
     // GET: api/Styles/5
     [HttpGet("{id}")]
     public async Task<ActionResult<Style>> GetStyle(int id)
     {
-        var style = await _context.GetAsync(id);
+        var style = await _repository.GetAsync(id);
 
         if (style == null)
         {
@@ -44,19 +44,19 @@ public class StylesController : ControllerBase
     [HttpPut("{id}")]
     public async Task<IActionResult> PutStyle(int id, Style styleData)
     {
-        if (id != styleData.Id)
+        if (id != styleData.StyleId)
         {
             return BadRequest();
         }
 
-        var style = await _context.GetAsync(id);
+        var style = await _repository.GetAsync(id);
 
         if (style == null)
         {
             return NotFound();
         }
 
-        await _context.UpdateAsync(id, styleData);
+        await _repository.UpdateAsync(id, styleData);
 
         return NoContent();
     }
@@ -66,23 +66,23 @@ public class StylesController : ControllerBase
     [HttpPost]
     public async Task<ActionResult<Style>> PostStyle(Style style)
     {
-        await _context.AddAsync(style);
+        await _repository.AddAsync(style);
 
-        return CreatedAtAction("GetStyle", new { id = style.Id }, style);
+        return CreatedAtAction("GetStyle", new { id = style.StyleId }, style);
     }
 
     // DELETE: api/Styles/5
     [HttpDelete("{id}")]
     public async Task<IActionResult> DeleteStyle(int id)
     {
-        var style = await _context.GetAsync(id);
+        var style = await _repository.GetAsync(id);
 
         if (style == null)
         {
             return NotFound();
         }
 
-        await _context.DeleteAsync(style);
+        await _repository.DeleteAsync(style);
 
         return NoContent();
     }

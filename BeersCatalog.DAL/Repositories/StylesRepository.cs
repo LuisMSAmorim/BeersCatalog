@@ -33,12 +33,12 @@ public sealed class StylesRepository : IStylesRepository
 
     public async Task<Style> GetAsync(int id)
     {
-        return await _context.Style.SingleOrDefaultAsync(style => style.Id == id);
+        return await _context.Style.SingleOrDefaultAsync(style => style.StyleId == id);
     }
 
     public async Task UpdateAsync(int id, Style style)
     {
-        var oldStyle = await _context.Style.SingleOrDefaultAsync(style => style.Id == id);
+        var oldStyle = await _context.Style.SingleOrDefaultAsync(style => style.StyleId == id);
 
         _context.Entry(oldStyle).CurrentValues.SetValues(style);
 
