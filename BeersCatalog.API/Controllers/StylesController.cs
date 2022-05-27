@@ -56,7 +56,7 @@ public class StylesController : ControllerBase
             return NotFound();
         }
 
-        await _context.UpdateAsync(styleData);
+        await _context.UpdateAsync(id, styleData);
 
         return NoContent();
     }

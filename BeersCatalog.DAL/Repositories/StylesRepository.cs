@@ -36,9 +36,11 @@ public sealed class StylesRepository : IStylesRepository
         return await _context.Style.SingleOrDefaultAsync(style => style.Id == id);
     }
 
-    public async Task UpdateAsync(Style style)
+    public async Task UpdateAsync(int id, Style style)
     {
-        _context.Update(style);
+        var oldStyle = await _context.Style.SingleOrDefaultAsync(style => style.Id == id);
+
+        _context.Entry(oldStyle).CurrentValues.SetValues(style);
 
         await _context.SaveChangesAsync();
     }
