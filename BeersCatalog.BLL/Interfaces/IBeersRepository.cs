@@ -7,6 +7,6 @@ public interface IBeersRepository
     Task<Beer> GetAsync(int id);
     Task<List<Beer>> GetAllAsync();
     Task<List<Beer>> GetAllByStyleAsync(Style style);
-    Task UpdateAsync(Beer beer);
+    Task UpdateAsync(int id, Beer beer);
     Task DeleteAsync(Beer beer);
 }

@@ -42,9 +42,15 @@ public sealed class BeersRepository : IBeersRepository
         return await _context.Beer.SingleOrDefaultAsync(x => x.Id == id);
     }
 
-    public async Task UpdateAsync(Beer beer)
+    public async Task UpdateAsync(int id, Beer beer)
     {
         _context.Update(beer);
+
+        await _context.SaveChangesAsync();
+
+        var oldBeer = await _context.Beer.SingleOrDefaultAsync(beer => beer.Id == id);
+
+        _context.Entry(oldBeer).CurrentValues.SetValues(beer);
 
         await _context.SaveChangesAsync();
     }
