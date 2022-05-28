@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeersCatalog.DAL", "BeersCa
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeersCatalog.API", "BeersCatalog.API\BeersCatalog.API.csproj", "{CFA162D9-BFDA-47B2-8611-8393353D67E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeersCatalog.Presentation", "BeersCatalog.Presentation\BeersCatalog.Presentation.csproj", "{921DF982-373F-496C-88D3-D70F8EA5E74D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{CFA162D9-BFDA-47B2-8611-8393353D67E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CFA162D9-BFDA-47B2-8611-8393353D67E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CFA162D9-BFDA-47B2-8611-8393353D67E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{921DF982-373F-496C-88D3-D70F8EA5E74D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{921DF982-373F-496C-88D3-D70F8EA5E74D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{921DF982-373F-496C-88D3-D70F8EA5E74D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{921DF982-373F-496C-88D3-D70F8EA5E74D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

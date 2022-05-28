@@ -1,5 +1,5 @@
 ﻿using BeersCatalog.API.Config;
-using BeersCatalog.API.LoginModels.Config;
+using BeersCatalog.BLL.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;

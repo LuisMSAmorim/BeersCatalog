@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BeersCatalog.API.LoginModels.Config;
+namespace BeersCatalog.BLL.Models;
 
 public sealed class UserDetails
 {

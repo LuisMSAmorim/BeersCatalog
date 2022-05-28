@@ -1,4 +1,4 @@
-﻿namespace BeersCatalog.API.LoginModels.Config;
+﻿namespace BeersCatalog.BLL.Models;
 
 public class LoginCredentials
 {
