@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BeersCatalog.BLL.Models;
 using BeersCatalog.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BeersCatalog.API.Controllers;
 
@@ -20,6 +21,7 @@ public class StylesController : ControllerBase
 
     // GET: api/Styles
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Style>>> GetStyle()
     {
         return await _repository.GetAllAsync();

@@ -6,6 +6,8 @@ var startup = new Startup(builder.Configuration);
 
 startup.ConfigureServices(builder.Services);
 
+startup.ConfigureSwagger(builder.Services);
+
 startup.DependencyInjectionServices(builder.Services);
 
 var app = builder.Build();
@@ -19,10 +21,15 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseRouting();
 
 app.UseAuthentication();
 
-app.MapControllers();
+app.UseAuthorization();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();
+});
 
 app.Run();

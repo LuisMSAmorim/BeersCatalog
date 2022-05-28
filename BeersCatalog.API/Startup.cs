@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using Microsoft.OpenApi.Models;
 using System.Text;
 
 namespace BeersCatalog.API;
@@ -23,8 +24,6 @@ public class Startup
         services.AddControllers();
 
         services.AddEndpointsApiExplorer();
-
-        services.AddSwaggerGen();
 
         services.AddDbContext<BeersCatalogDbContext>(options =>
         options.UseSqlServer(Configuration.GetConnectionString("DatabaseConnection")));
@@ -66,6 +65,37 @@ public class Startup
     {
         services.AddScoped<IStylesRepository, StylesRepository>();
         services.AddScoped<IBeersRepository, BeersRepository>();
+    }
+
+    public void ConfigureSwagger(IServiceCollection services)
+    {
+        services.AddSwaggerGen(x =>
+        {
+            x.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
+            {
+                Name = "Authorization",
+                Type = SecuritySchemeType.ApiKey,
+                Scheme = "Bearer",
+                BearerFormat = "JWT",
+                In = ParameterLocation.Header,
+                Description = "JWT Authorization header (Type 'Bearer' + your token)"
+            });
+
+            x.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id  = "Bearer"
+                        }
+                    },
+                    new string[]{}
+                }
+            });
+        });
     }
 }
 
