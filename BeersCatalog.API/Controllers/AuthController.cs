@@ -107,4 +107,3 @@ public class AuthController : ControllerBase
         return tokenHandler.WriteToken(token);
     }
 }
-
