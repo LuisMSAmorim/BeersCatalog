@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeersCatalog.BLL", "BeersCatalog.BLL\BeersCatalog.BLL.csproj", "{1FEDC967-9B1C-48AC-86BC-BF6144BF045A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeersCatalog.BLL", "BeersCatalog.BLL\BeersCatalog.BLL.csproj", "{1FEDC967-9B1C-48AC-86BC-BF6144BF045A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeersCatalog.DAL", "BeersCatalog.DAL\BeersCatalog.DAL.csproj", "{4CC6ADAE-4076-4AFB-AFE3-17112CA421C2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeersCatalog.DAL", "BeersCatalog.DAL\BeersCatalog.DAL.csproj", "{4CC6ADAE-4076-4AFB-AFE3-17112CA421C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BeersCatalog.API", "BeersCatalog.API\BeersCatalog.API.csproj", "{CFA162D9-BFDA-47B2-8611-8393353D67E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BeersCatalog.API", "BeersCatalog.API\BeersCatalog.API.csproj", "{CFA162D9-BFDA-47B2-8611-8393353D67E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

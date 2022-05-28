@@ -1,4 +1,5 @@
-﻿using BeersCatalog.BLL.Interfaces;
+﻿using BeersCatalog.API.Config;
+using BeersCatalog.BLL.Interfaces;
 using BeersCatalog.DAL;
 using BeersCatalog.DAL.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,11 +33,16 @@ public class Startup
         options.SignIn.RequireConfirmedAccount = true)
             .AddEntityFrameworkStores<BeersCatalogDbContext>();
 
+        var jwtSection = Configuration.GetSection("JwtBearerTokenSettings");
+        services.Configure<JwtBearerTokenSettings>(jwtSection);
+
+        var jwtBearerTokenSettings = jwtSection.Get<JwtBearerTokenSettings>();
+        var key = Encoding.ASCII.GetBytes(jwtBearerTokenSettings.SecretKey);
+
         services.AddAuthentication(options =>
         {
             options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
             options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
         })
         .AddJwtBearer(options =>
         {
@@ -45,10 +51,13 @@ public class Startup
             options.TokenValidationParameters = new TokenValidationParameters()
             {
                 ValidateIssuer = true,
+                ValidIssuer = jwtBearerTokenSettings.Issuer,
                 ValidateAudience = true,
-                ValidAudience = "*",
-                ValidIssuer = "*",
-                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("ET_Telephone_My_House"))
+                ValidAudience = jwtBearerTokenSettings.Audience,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
             };
         });
     }

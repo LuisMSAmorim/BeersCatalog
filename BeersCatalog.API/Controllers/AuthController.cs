@@ -1,5 +1,5 @@
 ﻿using BeersCatalog.API.Config;
-using BeersCatalog.BLL.Models;
+using BeersCatalog.API.LoginModels.Config;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -18,7 +18,11 @@ public class AuthController : ControllerBase
     private readonly JwtBearerTokenSettings jwtBearerTokenSettings;
     private readonly UserManager<IdentityUser> userManager;
 
-    public AuthController(IOptions<JwtBearerTokenSettings> jwtTokenOptions, UserManager<IdentityUser> userManager)
+    public AuthController
+    (
+        IOptions<JwtBearerTokenSettings> jwtTokenOptions,
+        UserManager<IdentityUser> userManager
+    )
     {
         this.jwtBearerTokenSettings = jwtTokenOptions.Value;
         this.userManager = userManager;
@@ -71,7 +75,9 @@ public class AuthController : ControllerBase
         var identityUser = await userManager.FindByNameAsync(credentials.Username);
         if (identityUser != null)
         {
-            var result = userManager.PasswordHasher.VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
+            var result = userManager.PasswordHasher
+                .VerifyHashedPassword(identityUser, identityUser.PasswordHash, credentials.Password);
+
             return result == PasswordVerificationResult.Failed ? null : identityUser;
         }
 
