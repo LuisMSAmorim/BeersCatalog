@@ -29,6 +29,7 @@ public class StylesController : ControllerBase
 
     // GET: api/Styles/5
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<Style>> GetStyle(int id)
     {
         var style = await _repository.GetAsync(id);
@@ -44,6 +45,7 @@ public class StylesController : ControllerBase
     // PUT: api/Styles/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> PutStyle(int id, Style styleData)
     {
         if (id != styleData.StyleId)
@@ -66,6 +68,7 @@ public class StylesController : ControllerBase
     // POST: api/Styles
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Style>> PostStyle(Style style)
     {
         await _repository.AddAsync(style);
@@ -75,6 +78,7 @@ public class StylesController : ControllerBase
 
     // DELETE: api/Styles/5
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteStyle(int id)
     {
         var style = await _repository.GetAsync(id);

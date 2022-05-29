@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using BeersCatalog.BLL.Models;
 using BeersCatalog.DAL;
 using BeersCatalog.BLL.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BeersCatalog.API.Controllers;
 
@@ -22,6 +23,7 @@ public class BeersController : ControllerBase
 
     // GET: api/Beers
     [HttpGet]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Beer>>> GetBeer()
     {
         return await _repository.GetAllAsync();
@@ -30,6 +32,7 @@ public class BeersController : ControllerBase
     // GET: api/Beers/styles/1
     [HttpGet]
     [Route("styles/{styleId}")]
+    [Authorize]
     public async Task<ActionResult<IEnumerable<Beer>>> GetBeersByStyleId(int styleId)
     {
         return await _repository.GetAllByStyleAsync(styleId);
@@ -37,6 +40,7 @@ public class BeersController : ControllerBase
 
     // GET: api/Beers/5
     [HttpGet("{id}")]
+    [Authorize]
     public async Task<ActionResult<Beer>> GetBeer(int id)
     {
         var beer = await _repository.GetAsync(id);
@@ -52,6 +56,7 @@ public class BeersController : ControllerBase
     // PUT: api/Beers/5
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
+    [Authorize]
     public async Task<IActionResult> PutBeer(int id, Beer beerData)
     {
         if (id != beerData.BeerId)
@@ -74,6 +79,7 @@ public class BeersController : ControllerBase
     // POST: api/Beers
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPost]
+    [Authorize]
     public async Task<ActionResult<Beer>> PostBeer(Beer beer)
     {
         await _repository.AddAsync(beer);
@@ -83,6 +89,7 @@ public class BeersController : ControllerBase
 
     // DELETE: api/Beers/5
     [HttpDelete("{id}")]
+    [Authorize]
     public async Task<IActionResult> DeleteBeer(int id)
     {
         var beer = await _repository.GetAsync(id);
