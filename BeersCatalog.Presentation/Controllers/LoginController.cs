@@ -1,4 +1,5 @@
 ﻿using BeersCatalog.BLL.Models;
+using BeersCatalog.Presentation.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -7,12 +8,13 @@ namespace BeersCatalog.Presentation.Controllers;
 
 public class LoginController : Controller
 {
+    // GET: Login/Index
     public IActionResult Index()
     {
         return View();
     }
 
-    // POST: Login/Create
+    // POST: Login/Index
     [HttpPost]
     [ValidateAntiForgeryToken]
     public async Task<IActionResult> Index(LoginCredentials credentials)
@@ -25,15 +27,19 @@ public class LoginController : Controller
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
-        AuthToken receivedToken = JsonConvert.DeserializeObject<AuthToken>(apiResponse);
+        LoginResponse receivedToken = JsonConvert.DeserializeObject<LoginResponse>(apiResponse);
 
         if (receivedToken.Token != null)
         {
-            Response.Cookies.Append("token", receivedToken.Token);
+            CookieOptions option = new();
+            option.Expires = DateTime.Now.AddMinutes(60);
+            Response.Cookies.Append("token", receivedToken.Token, option);
+            ViewBag.Message = null;
             return View();
         }
         else
         {
+            ViewBag.Message = "Login ou senha inválidos...";
             return View();
         }
     }

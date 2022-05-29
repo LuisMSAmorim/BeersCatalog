@@ -37,8 +37,9 @@ public class AuthController : ControllerBase
             return new BadRequestObjectResult(new { Message = "User Registration Failed" });
         }
 
-        var identityUser = new IdentityUser() { UserName = userDetails.UserName, Email = userDetails.Email };
-        var result = await userManager.CreateAsync(identityUser, userDetails.Password);
+        IdentityUser identityUser = new() { UserName = userDetails.UserName, Email = userDetails.Email };
+        IdentityResult result = await userManager.CreateAsync(identityUser, userDetails.Password);
+
         if (!result.Succeeded)
         {
             var dictionary = new ModelStateDictionary();
@@ -50,7 +51,7 @@ public class AuthController : ControllerBase
             return new BadRequestObjectResult(new { Message = "User Registration Failed", Errors = dictionary });
         }
 
-        return Ok(new { Message = "User Reigstration Successful" });
+        return Ok(new { Message = "User Registration Successful" });
     }
 
     [HttpPost]

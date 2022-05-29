@@ -1,6 +1,6 @@
-﻿namespace BeersCatalog.BLL.Models;
+﻿namespace BeersCatalog.Presentation.Models;
 
-public class AuthToken
+public class LoginResponse
 {
     #nullable enable
     public string? Token { get; set; }
