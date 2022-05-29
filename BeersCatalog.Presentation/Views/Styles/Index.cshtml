@@ -1,15 +1,23 @@
 ﻿@model IEnumerable<BeersCatalog.BLL.Models.Style>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Estilos";
 }
 
-<h1>Index</h1>
+<h1>Estilos</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create">Adicionar</a>
 </p>
-<table class="table">
+@if(Model == null)
+{
+    <div class="alert alert-danger" role="alert">
+        @ViewBag.Message
+    </div>
+}
+else
+{
+   <table class="table">
     <thead>
         <tr>
             <th>
@@ -25,11 +33,12 @@
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StyleId">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.StyleId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.StyleId">Delete</a>
+                <a asp-action="Edit" asp-route-id="@item.StyleId">Editar</a> |
+                <a asp-action="Details" asp-route-id="@item.StyleId">Detalhes</a> |
+                <a asp-action="Delete" asp-route-id="@item.StyleId">Deletar</a>
             </td>
         </tr>
 }
     </tbody>
-</table>
+</table> 
+}

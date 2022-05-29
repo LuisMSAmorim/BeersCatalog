@@ -27,7 +27,7 @@ public class LoginController : Controller
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
-        LoginResponse receivedToken = JsonConvert.DeserializeObject<LoginResponse>(apiResponse);
+        LoginResponseViewModel receivedToken = JsonConvert.DeserializeObject<LoginResponseViewModel>(apiResponse);
 
         if (receivedToken.Token != null)
         {
@@ -42,5 +42,13 @@ public class LoginController : Controller
             ViewBag.Message = "Login ou senha inválidos...";
             return View();
         }
+    }
+
+    // POST Login/Logout
+    public IActionResult Logout()
+    {
+        Response.Cookies.Delete("token");
+
+        return RedirectToAction("Index", "Home");
     }
 }

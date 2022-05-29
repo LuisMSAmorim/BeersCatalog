@@ -27,7 +27,7 @@ public class RegistrationController : Controller
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
-        var deserializedResponse = JsonConvert.DeserializeObject<RegistrationResponse>(apiResponse);
+        var deserializedResponse = JsonConvert.DeserializeObject<RegistrationResponseViewModel>(apiResponse);
 
         if (deserializedResponse.Errors != null)
         {

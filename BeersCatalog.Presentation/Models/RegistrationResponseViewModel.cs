@@ -1,9 +1,9 @@
 ﻿namespace BeersCatalog.Presentation.Models;
 
-public class LoginResponse
+public class RegistrationResponseViewModel
 {
-    #nullable enable
-    public string? Token { get; set; }
     #nullable disable
     public string Message { get; set; }
+    #nullable enable
+    public Object? Errors { get; set; }
 }

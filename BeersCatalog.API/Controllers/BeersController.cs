@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using BeersCatalog.BLL.Models;
-using BeersCatalog.DAL;
 using BeersCatalog.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 
