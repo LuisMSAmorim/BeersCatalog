@@ -36,6 +36,7 @@ else
                 <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.StyleId">Editar</a> |
                 <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.StyleId">Detalhes</a> |
                 <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.StyleId">Deletar</a>
+                <a class="btn btn-success" asp-controller="Beers" asp-action="IndexByStyleId" asp-route-id="@item.StyleId">Cervejas</a>
             </td>
         </tr>
 }

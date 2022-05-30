@@ -39,6 +39,34 @@ public class BeersController : Controller
         return View(beers);
     }
 
+    // GET: /beers/styles/id
+    public async Task<ActionResult> IndexByStyleId(int id)
+    {
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/Beers/styles/{id}");
+
+        string apiResponse = await response.Content.ReadAsStringAsync();
+
+        var beers = JsonConvert.DeserializeObject<List<Beer>>(apiResponse);
+
+        if (beers == null || beers.Count == 0)
+        {
+            ViewBag.Message = "Não há cervejas registradas";
+            return View();
+        }
+
+        ViewBag.Style = $"{beers[0].Style.Name}";
+        return View(beers);
+    }
+
     // GET: BeersController/Details/5
     public async Task<ActionResult> Details(int id)
     {
