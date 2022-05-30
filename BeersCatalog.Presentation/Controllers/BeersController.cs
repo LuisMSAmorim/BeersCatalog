@@ -10,6 +10,8 @@ namespace BeersCatalog.Presentation.Controllers;
 
 public class BeersController : Controller
 {
+    private readonly string baseUrl = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Urls")["ApiUrl"];
+
     // GET: BeersController
     public async Task<ActionResult> Index()
     {
@@ -22,7 +24,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7205/api/Beers");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/Beers");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -49,7 +51,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/Beers/{id}");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/Beers/{id}");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -75,7 +77,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7205/api/styles");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/styles");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -110,7 +112,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.PostAsync($"https://localhost:7205/api/Beers/", content);
+        HttpResponseMessage response = await httpClient.PostAsync($"{baseUrl}/Beers/", content);
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -132,8 +134,8 @@ public class BeersController : Controller
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
         var response = await Task.WhenAll(
-            httpClient.GetAsync($"https://localhost:7205/api/Beers/{id}"),
-            httpClient.GetAsync($"https://localhost:7205/api/Styles")
+            httpClient.GetAsync($"{baseUrl}/Beers/{id}"),
+            httpClient.GetAsync($"{baseUrl}/Styles")
         );
 
         var beerResponse = response[0];
@@ -173,7 +175,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var response = await httpClient.PutAsync($"https://localhost:7205/api/Beers/{id}", content);
+        var response = await httpClient.PutAsync($"{baseUrl}/Beers/{id}", content);
 
         if (response.IsSuccessStatusCode)
             return RedirectToAction("Index");
@@ -193,7 +195,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/Beers/{id}");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/Beers/{id}");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -221,7 +223,7 @@ public class BeersController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.DeleteAsync($"https://localhost:7205/api/Beers/{id}");
+        HttpResponseMessage response = await httpClient.DeleteAsync($"{baseUrl}/Beers/{id}");
 
         if (response.IsSuccessStatusCode)
             return RedirectToAction("Index");

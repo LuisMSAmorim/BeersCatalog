@@ -7,7 +7,7 @@
 <h1>Estilos</h1>
 
 <p>
-    <a asp-action="Create">Adicionar</a>
+    <a class="btn btn-primary" asp-action="Create">Adicionar</a>
 </p>
 @if(Model == null)
 {
@@ -33,9 +33,9 @@ else
                 @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.StyleId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.StyleId">Detalhes</a> |
-                <a asp-action="Delete" asp-route-id="@item.StyleId">Deletar</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.StyleId">Editar</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.StyleId">Detalhes</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.StyleId">Deletar</a>
             </td>
         </tr>
 }

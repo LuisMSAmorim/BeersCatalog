@@ -7,7 +7,7 @@
 <h1>Cervejas</h1>
 
 <p>
-    <a asp-action="Create">Adicionar</a>
+    <a class="btn btn-primary" asp-action="Create">Adicionar</a>
 </p>
 
 @if(Model == null)
@@ -58,9 +58,9 @@ else
                 @Html.DisplayFor(modelItem => item.Style.Name)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.BeerId">Editar</a> |
-                <a asp-action="Details" asp-route-id="@item.BeerId">Detalhess</a> |
-                <a asp-action="Delete" asp-route-id="@item.BeerId">Deletar</a>
+                <a class="btn btn-warning" asp-action="Edit" asp-route-id="@item.BeerId">Editar</a> |
+                <a class="btn btn-primary" asp-action="Details" asp-route-id="@item.BeerId">Detalhes</a> |
+                <a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.BeerId">Deletar</a>
             </td>
         </tr>
 }

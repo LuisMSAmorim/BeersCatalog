@@ -4,11 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
 using System.Text;
+using Microsoft.Extensions.Configuration;
 
 namespace BeersCatalog.Presentation.Controllers;
 
 public class StylesController : Controller
 {
+    private readonly string baseUrl = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("Urls")["ApiUrl"];
+
     // GET: StylesController
     public async Task<ActionResult> Index()
     {
@@ -21,7 +24,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync("https://localhost:7205/api/styles");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/styles");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -48,7 +51,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/styles/{id}");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/styles/{id}");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -87,7 +90,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.PostAsync($"https://localhost:7205/api/styles/", content);
+        HttpResponseMessage response = await httpClient.PostAsync($"{baseUrl}/styles/", content);
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -108,7 +111,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/styles/{id}");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/styles/{id}");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -141,7 +144,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        var response = await httpClient.PutAsync($"https://localhost:7205/api/styles/{id}", content);
+        var response = await httpClient.PutAsync($"{baseUrl}/styles/{id}", content);
 
         if(response.IsSuccessStatusCode)
             return RedirectToAction("Index");
@@ -161,7 +164,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/styles/{id}");
+        HttpResponseMessage response = await httpClient.GetAsync($"{baseUrl}/styles/{id}");
 
         string apiResponse = await response.Content.ReadAsStringAsync();
 
@@ -189,7 +192,7 @@ public class StylesController : Controller
 
         httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
-        HttpResponseMessage response = await httpClient.DeleteAsync($"https://localhost:7205/api/styles/{id}");
+        HttpResponseMessage response = await httpClient.DeleteAsync($"{baseUrl}/styles/{id}");
 
         if (response.IsSuccessStatusCode)
             return RedirectToAction("Index");

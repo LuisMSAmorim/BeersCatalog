@@ -1,9 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using BeersCatalog.Presentation.Data;
-var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddDbContext<BeersCatalogPresentationContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("BeersCatalogPresentationContext") ?? throw new InvalidOperationException("Connection string 'BeersCatalogPresentationContext' not found.")));
+﻿var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
