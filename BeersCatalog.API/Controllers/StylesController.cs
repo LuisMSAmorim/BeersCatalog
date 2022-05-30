@@ -2,6 +2,7 @@
 using BeersCatalog.BLL.Models;
 using BeersCatalog.BLL.Interfaces;
 using Microsoft.AspNetCore.Authorization;
+using BeersCatalog.BLL.DTOs;
 
 namespace BeersCatalog.API.Controllers;
 
@@ -46,13 +47,8 @@ public class StylesController : ControllerBase
     // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
     [HttpPut("{id}")]
     [Authorize]
-    public async Task<IActionResult> PutStyle(int id, Style styleData)
+    public async Task<IActionResult> PutStyle(int id, StyleDTO styleData)
     {
-        if (id != styleData.StyleId)
-        {
-            return BadRequest();
-        }
-
         var style = await _repository.GetAsync(id);
 
         if (style == null)

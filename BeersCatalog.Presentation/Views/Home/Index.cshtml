@@ -6,13 +6,27 @@
   <h1 class="display-4">Bem-vindo(a) ao BeersCatalog!</h1>
   <p class="lead">O seu catálogo de cervejas.</p>
   <hr class="my-4">
-  <p>Faça login ou registre-se:</p>
-  <div class="btn-group">
-    <p class="lead">
-        <a style="margin-right: 10px;" class="btn btn-primary btn-lg" asp-controller="Login" asp-action="index" role="button">Login</a>
-    </p>
-    <p class="lead">
-        <a class="btn btn-primary btn-lg" asp-controller="Registration" asp-action="index" role="button">Registre-se</a>
-    </p>
-  </div>
+  @if (Context.Request.Cookies["token"] == null)
+    {
+        <p>Faça login ou registre-se:</p>
+          <div class="btn-group">
+            <p class="lead">
+                <a style="margin-right: 10px;" class="btn btn-primary btn-lg" asp-controller="Login" asp-action="index" role="button">Login</a>
+            </p>
+            <p class="lead">
+                <a class="btn btn-primary btn-lg" asp-controller="Registration" asp-action="index" role="button">Registre-se</a>
+            </p>
+        </div>
+    }
+    else
+    {
+        <div class="btn-group">
+        <p class="lead">
+            <a style="margin-right: 10px;" class="btn btn-primary btn-lg" asp-controller="Styles" asp-action="index" role="button">Estilos</a>
+        </p>
+        <p class="lead">
+            <a class="btn btn-primary btn-lg" asp-controller="Beers" asp-action="index" role="button">Cervejas</a>
+        </p>
+    </div>
+    }
 </div>

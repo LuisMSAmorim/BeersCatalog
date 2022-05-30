@@ -1,7 +1,9 @@
-﻿using BeersCatalog.BLL.Models;
+﻿using BeersCatalog.BLL.DTOs;
+using BeersCatalog.BLL.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http.Headers;
+using System.Text;
 
 namespace BeersCatalog.Presentation.Controllers;
 
@@ -11,6 +13,9 @@ public class StylesController : Controller
     public async Task<ActionResult> Index()
     {
         string token = Request.Cookies["token"];
+        
+        if(token == null)
+            return RedirectToAction("Index", "Login");
 
         HttpClient httpClient = new();
 
@@ -32,9 +37,29 @@ public class StylesController : Controller
     }
 
     // GET: StylesController/Details/5
-    public ActionResult Details(int id)
+    public async Task<ActionResult> Details(int id)
     {
-        return View();
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/styles/{id}");
+
+        string apiResponse = await response.Content.ReadAsStringAsync();
+
+        var style = JsonConvert.DeserializeObject<Style>(apiResponse);
+
+        if (style == null)
+        {
+            return NotFound();
+        }
+
+        return View(style);
     }
 
     // GET: StylesController/Create
@@ -46,57 +71,132 @@ public class StylesController : Controller
     // POST: StylesController/Create
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Create(IFormCollection collection)
+    public async Task<ActionResult> Create(IFormCollection collection)
     {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        Style style = new();
+        style.Name = collection["name"];
+
+        StringContent content = new(JsonConvert.SerializeObject(style), Encoding.UTF8, "application/json");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        HttpResponseMessage response = await httpClient.PostAsync($"https://localhost:7205/api/styles/", content);
+
+        string apiResponse = await response.Content.ReadAsStringAsync();
+
+        JsonConvert.DeserializeObject<CreatedAtActionResult>(apiResponse);
+
+        return RedirectToAction("Index");
     }
 
     // GET: StylesController/Edit/5
-    public ActionResult Edit(int id)
+    public async Task<ActionResult> Edit(int id)
     {
-        return View();
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/styles/{id}");
+
+        string apiResponse = await response.Content.ReadAsStringAsync();
+
+        var style = JsonConvert.DeserializeObject<Style>(apiResponse);
+
+        if (style == null)
+        {
+            return NotFound();
+        }
+
+        return View(style);
     }
 
     // POST: StylesController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> Edit(int id, IFormCollection collection)
     {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        StyleDTO style = new();
+        style.Name = collection["name"];
+
+        StringContent content = new(JsonConvert.SerializeObject(style), Encoding.UTF8, "application/json");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        var response = await httpClient.PutAsync($"https://localhost:7205/api/styles/{id}", content);
+
+        if(response.IsSuccessStatusCode)
+            return RedirectToAction("Index");
+
+        return View(style);
     }
 
     // GET: StylesController/Delete/5
-    public ActionResult Delete(int id)
+    public async Task<ActionResult> Delete(int id)
     {
-        return View();
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        HttpResponseMessage response = await httpClient.GetAsync($"https://localhost:7205/api/styles/{id}");
+
+        string apiResponse = await response.Content.ReadAsStringAsync();
+
+        var style = JsonConvert.DeserializeObject<Style>(apiResponse);
+
+        if (style == null)
+        {
+            return NotFound();
+        }
+
+        return View(style);
     }
 
     // POST: StylesController/Delete/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public ActionResult Delete(int id, IFormCollection collection)
+    public async Task<ActionResult> Delete(int id, IFormCollection collection)
     {
-        try
-        {
-            return RedirectToAction(nameof(Index));
-        }
-        catch
-        {
-            return View();
-        }
+        string token = Request.Cookies["token"];
+
+        if (token == null)
+            return RedirectToAction("Index", "Login");
+
+        HttpClient httpClient = new();
+
+        httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+        HttpResponseMessage response = await httpClient.DeleteAsync($"https://localhost:7205/api/styles/{id}");
+
+        if (response.IsSuccessStatusCode)
+            return RedirectToAction("Index");
+
+        StyleDTO style = new();
+        style.Name = collection["name"];
+
+        return View(style);
     }
 }

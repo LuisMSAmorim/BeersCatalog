@@ -1,0 +1,51 @@
+﻿@model BeersCatalog.BLL.Models.Beer
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Editar</h1>
+
+<h4>Cerveja</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="BeerId" />
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Price" class="control-label"></label>
+                <input asp-for="Price" class="form-control" />
+                <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ABV" class="control-label"></label>
+                <input asp-for="ABV" class="form-control" />
+                <span asp-validation-for="ABV" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IBU" class="control-label"></label>
+                <input asp-for="IBU" class="form-control" />
+                <span asp-validation-for="IBU" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="StyleId" class="control-label"></label>
+                <select asp-for="StyleId" class="form-control" asp-items="ViewBag.StyleId"></select>
+                <span asp-validation-for="StyleId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar para lista</a>
+</div>
+

@@ -1,4 +1,5 @@
-﻿using BeersCatalog.BLL.Interfaces;
+﻿using BeersCatalog.BLL.DTOs;
+using BeersCatalog.BLL.Interfaces;
 using BeersCatalog.BLL.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -36,7 +37,7 @@ public sealed class StylesRepository : IStylesRepository
         return await _context.Style.SingleOrDefaultAsync(style => style.StyleId == id);
     }
 
-    public async Task UpdateAsync(int id, Style style)
+    public async Task UpdateAsync(int id, StyleDTO style)
     {
         var oldStyle = await _context.Style.SingleOrDefaultAsync(style => style.StyleId == id);
 

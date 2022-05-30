@@ -34,8 +34,8 @@ public class LoginController : Controller
             CookieOptions option = new();
             option.Expires = DateTime.Now.AddMinutes(60);
             Response.Cookies.Append("token", receivedToken.Token, option);
-            ViewBag.Message = null;
-            return View();
+
+            return RedirectToAction("Index", "Home");
         }
         else
         {
