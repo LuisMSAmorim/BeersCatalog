@@ -17,6 +17,7 @@ public sealed class Beer
     [Required]
     public int IBU { get; set; }
     [Required]
+    [Display(Name = "Estilo")]
     public int StyleId { get; set; }
     [Display(Name = "Estilo")]
     public Style Style { get; set; }

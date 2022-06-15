@@ -188,14 +188,12 @@ public class BeersController : Controller
     // POST: BeersController/Edit/5
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public async Task<ActionResult> Edit(int id, IFormCollection collection)
+    public async Task<ActionResult> Edit(int id, Beer beer)
     {
         string token = Request.Cookies["token"];
 
         if (token == null)
             return RedirectToAction("Index", "Login");
-
-        BeerDTO beer = CreateBeerDTOWithFormProps(collection);
 
         StringContent content = new(JsonConvert.SerializeObject(beer), Encoding.UTF8, "application/json");
 
